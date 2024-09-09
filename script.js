@@ -4,12 +4,26 @@ let computerScore = 0
 //console.log(getComputerChoice());
 //console.log(getHumanChoice());
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
-console.log(`You Score: ${humanScore}`);
-console.log(`Computer Score: ${computerScore}`);
+//playRound(humanSelection, computerSelection);
+playGame();
+
+function playGame() {
+    for( let i = 0; i < 5; i++) {
+        let humanSelection = getHumanChoice();
+        let computerSelection = getComputerChoice();
+
+        playRound(humanSelection, computerSelection);
+
+        console.log(`You Score: ${humanScore}`);
+        console.log(`Computer Score: ${computerScore}`);
+
+    }
+
+    humanScore > computerScore ? console.log("You Win the Game") : 
+    humanScore == computerScore ? console.log("You Draw the Game") : 
+                                    console.log("You Lost the Game")
+}
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice == "rock" || 
@@ -25,14 +39,15 @@ function playRound(humanChoice, computerChoice) {
                 humanChoice == "scissors" && computerChoice == "paper" || 
                 humanChoice == "paper" && computerChoice == "rock") {
         
-                console.log("You Win");
+                console.log("You Won the Round");
                 humanScore += 1;
             } else {
                 console.log("You Lose");
                 computerScore += 1;
             }
+            
     } else {
-        console.log("Invalid Choice");
+        console.log("You Lost the Round");
     }
 
 }
