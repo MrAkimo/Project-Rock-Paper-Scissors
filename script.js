@@ -1,12 +1,28 @@
 let humanScore = 0
 let computerScore = 0
 
+// Events
+const btn_rock = document.querySelector("#btn-rock");
+btn_rock.addEventListener("click", () => {
+    alert('Rock choice');
+})
+
+const btn_paper = document.querySelector("#btn-paper");
+btn_paper.addEventListener("click", () => {
+    alert('Paper choice');
+})
+
+const btn_scissors = document.querySelector("#btn-scissors");
+btn_scissors.addEventListener("click", () => {
+    alert('Scissors choice');
+})
+
 //console.log(getComputerChoice());
 //console.log(getHumanChoice());
 
 
 //playRound(humanSelection, computerSelection);
-playGame();
+//playGame();
 
 function playGame() {
     for( let i = 0; i < 5; i++) {
