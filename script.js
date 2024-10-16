@@ -3,42 +3,62 @@ let computerScore = 0
 
 // Events
 const btn_rock = document.querySelector("#btn-rock");
-btn_rock.addEventListener("click", () => {
-    alert('Rock choice');
-})
-
 const btn_paper = document.querySelector("#btn-paper");
-btn_paper.addEventListener("click", () => {
-    alert('Paper choice');
-})
-
 const btn_scissors = document.querySelector("#btn-scissors");
-btn_scissors.addEventListener("click", () => {
-    alert('Scissors choice');
-})
+const p_display = document.querySelector('#p-display');
+const buttonsNodeList = document.querySelectorAll('button');
+const buttons = [...buttonsNodeList];
+
+// btn_rock.addEventListener("click", () => {
+//     playRound('rock', getComputerChoice());
+// })
+
+// btn_paper.addEventListener("click", () => {
+//     playRound('paper', getComputerChoice());
+// })
+
+// btn_scissors.addEventListener("click", () => {
+//     playRound('scissors', getComputerChoice());
+// })
+
+
 
 //console.log(getComputerChoice());
 //console.log(getHumanChoice());
 
 
 //playRound(humanSelection, computerSelection);
-//playGame();
+playGame();
+
+function displayChange(textValue) {
+    p_display.textContent = textValue;
+}
 
 function playGame() {
-    for( let i = 0; i < 5; i++) {
-        let humanSelection = getHumanChoice();
-        let computerSelection = getComputerChoice();
+    let round = 1
+    
+    buttons.every((button) => {
+        button.addEventListener('click', () => {
+            playRound(button.textContent.toLowerCase(), getComputerChoice())
+            round += 1;
+            console.log(round)
+        })
+        if(round <= 5) return false;
+    })
+    // for( let i = 0; i < 5; i++) {
+    //     let humanSelection = getHumanChoice();
+    //     let computerSelection = getComputerChoice();
 
-        playRound(humanSelection, computerSelection);
+    //     playRound(humanSelection, computerSelection);
 
-        console.log(`You Score: ${humanScore}`);
-        console.log(`Computer Score: ${computerScore}`);
+    //     console.log(`You Score: ${humanScore}`);
+    //     console.log(`Computer Score: ${computerScore}`);
 
-    }
+    // }
 
-    humanScore > computerScore ? console.log("You Win the Game") : 
-    humanScore == computerScore ? console.log("You Draw the Game") : 
-                                    console.log("You Lost the Game")
+    // humanScore > computerScore ? console.log("You Win the Game") : 
+    // humanScore == computerScore ? console.log("You Draw the Game") : 
+    //                                 console.log("You Lost the Game")
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -47,7 +67,7 @@ function playRound(humanChoice, computerChoice) {
         humanChoice == "scissors") {
 
             if (humanChoice == computerChoice) {
-                console.log("Draw")
+                displayChange("Draw");
                 return
             }
         
@@ -55,15 +75,15 @@ function playRound(humanChoice, computerChoice) {
                 humanChoice == "scissors" && computerChoice == "paper" || 
                 humanChoice == "paper" && computerChoice == "rock") {
         
-                console.log("You Won the Round");
+                displayChange("You Won the Round");
                 humanScore += 1;
             } else {
-                console.log("You Lose");
+                displayChange("You Lose");
                 computerScore += 1;
             }
             
     } else {
-        console.log("You Lost the Round");
+        displayChange("You Lost the Round");
     }
 
 }
