@@ -1,5 +1,6 @@
-let humanScore = 0
-let computerScore = 0
+let playerScore = 0;
+let botScore = 0;
+let drawsScore = 0;
 
 // Events
 const btn_rock = document.querySelector("#btn-rock");
@@ -33,17 +34,29 @@ playGame();
 function displayChange(textValue) {
     p_display.textContent = textValue;
 }
+function updateScore(whoWon){
+    const youScoreText = document.querySelector('#you-score');
+    const botScoreText = document.querySelector('#bot-score');
+    const drawsScoreText = document.querySelector('#draws-score');
+
+    whoWon == 'player' ? youScoreText.textContent = `You: ${playerScore + 1}`:
+    whoWon == 'bot' ? botScoreText.textContent = `Bot: ${botScore + 1}` :
+    whoWon == 'draw' ? drawsScoreText.textContent = `Draws: ${drawsScore + 1}` : ''
+
+
+}
 
 function playGame() {
     let round = 1
     
-    buttons.every((button) => {
+    buttons.forEach((button) => {
         button.addEventListener('click', () => {
-            playRound(button.textContent.toLowerCase(), getComputerChoice())
-            round += 1;
+            if(round < 5) {
+                playRound(button.textContent.toLowerCase(), getComputerChoice())
+                round += 1;
+            }
             console.log(round)
         })
-        if(round <= 5) return false;
     })
     // for( let i = 0; i < 5; i++) {
     //     let humanSelection = getHumanChoice();
@@ -68,6 +81,7 @@ function playRound(humanChoice, computerChoice) {
 
             if (humanChoice == computerChoice) {
                 displayChange("Draw");
+                updateScore('draw');
                 return
             }
         
@@ -76,10 +90,10 @@ function playRound(humanChoice, computerChoice) {
                 humanChoice == "paper" && computerChoice == "rock") {
         
                 displayChange("You Won the Round");
-                humanScore += 1;
+                updateScore('player');
             } else {
                 displayChange("You Lose");
-                computerScore += 1;
+                updateScore('bot');
             }
             
     } else {
