@@ -4,10 +4,11 @@ let drawsScore = 0;
 
 playGame();
 
-function displayChange(textValue) {
+function displayChange(textValue, color) {
 
     let p_display = document.querySelector('#p-display');
     p_display.textContent = textValue;
+    p_display.style.backgroundColor = color;
 }
 function updateScore(whoWon){
 
@@ -23,7 +24,7 @@ function updateScore(whoWon){
 }
 
 function playGame() {
-    
+
     const buttonsNodeList = document.querySelectorAll('button');
     const buttons = [...buttonsNodeList];
     
@@ -33,9 +34,9 @@ function playGame() {
                 playRound(button.textContent.toLowerCase(), getComputerChoice())
             }
             if(playerScore == 5  || botScore == 5){
-                playerScore > botScore ? displayChange('You Win the Game') : 
-                playerScore == botScore ? displayChange('You Draw the Game') : 
-                                               displayChange('You Lost the Game')
+                playerScore > botScore ? displayChange('You Win the Game','green') : 
+                playerScore == botScore ? displayChange('You Draw the Game','gray') : 
+                                               displayChange('You Lost the Game','red')
             }
         })
     })
@@ -47,7 +48,7 @@ function playRound(humanChoice, computerChoice) {
         humanChoice == "scissors") {
 
             if (humanChoice == computerChoice) {
-                displayChange("Draw");
+                displayChange("Draw",'lightgray');
                 updateScore('draw');
                 return
             }
@@ -56,10 +57,10 @@ function playRound(humanChoice, computerChoice) {
                 humanChoice == "scissors" && computerChoice == "paper" || 
                 humanChoice == "paper" && computerChoice == "rock") {
         
-                displayChange("You Won the Round");
+                displayChange("You Won the Round",'green');
                 updateScore('player');
             } else {
-                displayChange("You Lose the Round");
+                displayChange("You Lose the Round",'lightcoral');
                 updateScore('bot');
             }
             
